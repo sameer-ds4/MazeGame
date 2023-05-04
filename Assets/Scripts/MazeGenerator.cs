@@ -12,10 +12,34 @@ public class MazeGenerator : MonoBehaviour
     private List<Block> currentBlocks = new List<Block>();
     private List<Block> completedBlocks = new List<Block>();
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
+        UiManager.levelDiff += MazeSize;
+    }
+
+    private void OnDisable()
+    {
+        UiManager.levelDiff -= MazeSize;
+
+    }
+
+    private void MazeSize(string level)
+    {
+        switch(level)
+        {
+            case "Easy":
+                size = 5;
+                break;
+            
+            case "Medium":
+                size = 7;
+                break;
+
+            case "Hard":
+                size = 10;
+                break;
+        }
+
         MazeGenerate();
     }
 
