@@ -33,4 +33,9 @@ public class UiManager : MonoBehaviour
                 break;
         }
     }
+
+    public void CursorDisable()
+    {
+        Cursor.visible = false;
+    }
 }

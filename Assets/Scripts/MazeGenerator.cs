@@ -7,7 +7,7 @@ public class MazeGenerator : MonoBehaviour
     public Block mazeBlock;
     public int size;
 
-    public GameObject finishPoint;
+    public ParticleSystemData particlesystemData;
 
     [SerializeField]
     private List<Block> blocksList = new List<Block>();
@@ -160,6 +160,6 @@ public class MazeGenerator : MonoBehaviour
 
     private void PlaceFinish()
     {
-        finishPoint.transform.position = blocksList[blocksList.Count - 1].gameObject.transform.position;
+        particlesystemData.PlayFXs(blocksList[blocksList.Count - 1].transform.position, new Vector3(0, -0.42f, 0), 0, Vector3.one);
     }
 }
