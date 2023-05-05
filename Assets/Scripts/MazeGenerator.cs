@@ -7,9 +7,13 @@ public class MazeGenerator : MonoBehaviour
     public Block mazeBlock;
     public int size;
 
-    private List<Block> blocksList = new List<Block>();
+    public GameObject finishPoint;
 
+    [SerializeField]
+    private List<Block> blocksList = new List<Block>();
+    [SerializeField]
     private List<Block> currentBlocks = new List<Block>();
+    [SerializeField]
     private List<Block> completedBlocks = new List<Block>();
 
     private void OnEnable()
@@ -150,5 +154,12 @@ public class MazeGenerator : MonoBehaviour
                 currentBlocks.RemoveAt(currentBlocks.Count - 1);
             }
         }
+
+        PlaceFinish();
+    }
+
+    private void PlaceFinish()
+    {
+        finishPoint.transform.position = blocksList[blocksList.Count - 1].gameObject.transform.position;
     }
 }
