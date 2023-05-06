@@ -25,4 +25,5 @@ public class Block : MonoBehaviour
         if (Random.Range(0, odds.Length) == 0)
             coinGold.SetActive(true);
     }
+
 }

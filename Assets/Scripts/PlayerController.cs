@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     //private Rigidbody rb;
     public Transform player;
 
+    public delegate void OntriggerEvents();
+    public static event OntriggerEvents coincollect_update;
+    public static event OntriggerEvents level_complete;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +25,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!UiManager.gameStart)
+            return;
+
         MouseControl();
         Movement();
     }
@@ -62,6 +68,20 @@ public class PlayerController : MonoBehaviour
 
         character.Move(movement * speed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            coincollect_update?.Invoke();
+            other.gameObject.SetActive(false);
+        }
+
+        if(other.gameObject.CompareTag("Finish"))
+        {
+            level_complete?.Invoke();
+        }
+    }
 }
 
 
@@ -73,15 +93,3 @@ public class CameraMovement
     public float horizontal;
     public float vertical;
 }
-
-
-
-
-//private void calculatePositionAndTarget(float horizontal, float vertical, Vector3 pivot, Vector3 offset, out Vector3 position, out Vector3 target)
-//{
-//    var rotation = Quaternion.Euler(vertical, horizontal, 0);
-//    var transformPivot = _motorRotation * pivot + _motorPosition;
-
-//    position = transformPivot + rotation * offset;
-//    target = _motorPosition + pivot + rotation * Vector3.forward * 10;
-//}

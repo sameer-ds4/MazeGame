@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
+    public PlayerController player;
+    public GameObject finishpoint;
     public Block mazeBlock;
     public int size;
 
     public ParticleSystemData particlesystemData;
 
-    [SerializeField]
     private List<Block> blocksList = new List<Block>();
-    [SerializeField]
     private List<Block> currentBlocks = new List<Block>();
-    [SerializeField]
     private List<Block> completedBlocks = new List<Block>();
 
     private void OnEnable()
@@ -160,6 +159,11 @@ public class MazeGenerator : MonoBehaviour
 
     private void PlaceFinish()
     {
-        particlesystemData.PlayFXs(blocksList[blocksList.Count - 1].transform.position, new Vector3(0, -0.42f, 0), 0, Vector3.one);
+        player.transform.position = blocksList[0].gameObject.transform.position;
+        player.gameObject.SetActive(true);
+
+        finishpoint.SetActive(true);
+        finishpoint.transform.position = blocksList[blocksList.Count - 1].gameObject.transform.position;
+        //particlesystemData.PlayFXs(blocksList[blocksList.Count - 1].transform.position, new Vector3(0, -0.42f, 0), 0, Vector3.one);
     }
 }
